@@ -30,6 +30,10 @@ background: linear-gradient(90deg, rgba(72,154,255,1) 0%, rgba(28,28,166,1) 73%,
     margin-bottom: 5px;
 }
 
+hr {
+    height: 4px;
+}
+
 input {
     width: 98%;
     color: #6e6e6e;
@@ -66,4 +70,11 @@ input {
     font-weight: 400;
     font-size: 18px;
     
+}
+
+#weather-report {
+    width: 95%;
+  height: 175px;
+  border: 1px solid black;
+  margin: 15px
 }

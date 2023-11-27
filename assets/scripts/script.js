@@ -2,10 +2,65 @@
 
 // We need to call in the Weather API we will be using
 
-// We need a headder. 
+// This code will get the weather data for the location inputed by the user. 
+var weatherReport = document.getElementById("weather-report")
+
+function getTestApi() {
+    var lat = "33.448376";
+    var lon = "-112.074036";
+    var units = "imperial"
+    var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=' + units + '&appid=7683dd89e3713c696366aefeb8fa991f';
+
+    fetch(apiUrl)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            var listTemp = document.createElement("p");
+
+            listTemp.textContent = "Temp: " + data.list[0].main.temp;
+
+            weatherReport.appendChild(listTemp);
+        })
+};
+getTestApi();
+
+
+// var getWeatherData = function (repo) {
+//     var lat = "33.448376";
+//     var lon = "-112.074036";
+//     var apiUrl = 'api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=7683dd89e3713c696366aefeb8fa991f';
+
+//     fetch(apiUrl).then(function (response) {
+//         //   if (response.ok) {
+//         //     response.json().then(function (data) {
+//         //       displayIssues(data);
+
+//         //       if (response.headers.get('Link')) {
+//         //         displayWarning(repo);
+//         //       }
+//         //     });
+//         //   } else {
+//         //     document.location.replace('./index.html');
+//         //   }
+//     });
+// };
+
+var locationGeoData = function () {
+    var geoApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=7683dd89e3713c696366aefeb8fa991f"
+
+    fetch(geoApiUrl)
+        .then(function (response) {
+            return response.json()
+        })
+}
+
+// We need a header. 
 
 // We need the location entry box. 
 // When the user searches a location, we will pull data from the weather API about that location. 
+
+
 // We will need some system of getting the long/lat of the location to place into the API 
 
 // We need a spot that displays the previous search location that the user has searched. 
