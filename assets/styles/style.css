@@ -78,3 +78,13 @@ input {
   border: 1px solid black;
   margin: 15px
 }
+#weather-report h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+    margin: 5px;
+}
+
+#weather-report p {
+    margin-left: 5px
+}

@@ -12,15 +12,33 @@ function getTestApi() {
     var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=' + units + '&appid=7683dd89e3713c696366aefeb8fa991f';
 
     fetch(apiUrl)
-        .then(function(response) {
+        .then(function (response) {
             return response.json();
         })
-        .then(function(data) {
+        .then(function (data) {
+            var listName = document.createElement("h2");
+            var iconCode = data.list[0].weather[0].icon; // Accessing the icon code from the API response
+            var iconUrl = 'https://openweathermap.org/img/w/' + iconCode + '.png'; // Constructing the icon URL
+            var iconImg = document.createElement("img");
+            iconImg.src = iconUrl;
+            iconImg.alt = "Weather Icon"; // Add alt text for accessibility
+            
+            listName.textContent = data.city.name + " " + "(" + dayjs().format('M/D/YYYY') + ")";
+            
             var listTemp = document.createElement("p");
-
             listTemp.textContent = "Temp: " + data.list[0].main.temp;
-
+            
+            var listWind = document.createElement("p");
+            listWind.textContent = "Wind: " + data.list[0].wind.speed + " MPH";
+            
+            var listHumid = document.createElement("p");
+            listHumid.textContent = "Humidity: " + data.list[0].main.humidity + " %";
+            
+            weatherReport.appendChild(listName);
+            listName.appendChild(iconImg);
             weatherReport.appendChild(listTemp);
+            weatherReport.appendChild(listWind);
+            weatherReport.appendChild(listHumid);
         })
 };
 getTestApi();
