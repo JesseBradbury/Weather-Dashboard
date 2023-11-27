@@ -39,7 +39,7 @@ input {
     color: #6e6e6e;
 }
 
-.search-box {
+#search-box {
     margin-bottom: 10px;
     color: #929292;
 }
