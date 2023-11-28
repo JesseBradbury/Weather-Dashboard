@@ -64,8 +64,6 @@ var locationSearchEl = document.querySelector("#search-box");
 
 // When the user searches a location, we will pull data from the weather API about that location. 
 
-
-
 var formSubmitHandler = function (event) {
     event.preventDefault();
 
@@ -107,9 +105,29 @@ form.addEventListener('submit', formSubmitHandler);
 
 
 
-// We will need some system of getting the long/lat of the location to place into the API 
 
 // We need a spot that displays the previous search location that the user has searched. 
+// This will be the code to create the previous results buttons. 
+
+var previousSearch = JSON.parse(localStorage.getItem("storedLocations"));
+var searchHistory = document.querySelector("#search-history")
+
+function displaySearchHistory() {
+    var startIndex = Math.max(0, previousSearch.length - 10);
+
+    for (var i = startIndex; i < previousSearch.length; i++) {
+        var cityName = previousSearch[i];
+        var historyBtn = document.createElement("button");
+        historyBtn.classList.add("prev-results-btn")
+        historyBtn.
+        historyBtn.textContent = cityName;
+        
+        searchHistory.appendChild(historyBtn);
+    }
+    console.log(cityName);
+}
+displaySearchHistory();
+
 
 // We need an empty div that will display thecurrent conditions at the top and the 5 day forcast at the bottom. 
 
