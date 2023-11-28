@@ -119,10 +119,12 @@ function displaySearchHistory() {
         var cityName = previousSearch[i];
         var historyBtn = document.createElement("button");
         historyBtn.classList.add("prev-results-btn")
-        historyBtn.
+        historyBtn.value = cityName;
         historyBtn.textContent = cityName;
         
         searchHistory.appendChild(historyBtn);
+
+        // add event listener to each button.
     }
     console.log(cityName);
 }
