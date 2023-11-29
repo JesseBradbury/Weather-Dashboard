@@ -55,6 +55,28 @@ input {
     font-size: 18px;
 
 }
+#clear-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#clear {
+    width: 70%;
+    height: 40px;
+    background-color: #70a2df;
+    color: #f0f0f0;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 18px;
+}
+#clear:hover {
+    box-shadow: 0 8px 13px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+#search-btn:hover {
+    box-shadow: 0 8px 13px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
 
 #search-history {
     margin: 15px;
@@ -69,6 +91,7 @@ input {
     border-radius: 10px;
     font-weight: 400;
     font-size: 18px;
+    margin-bottom: 8px;
     
 }
 
