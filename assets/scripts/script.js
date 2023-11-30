@@ -3,7 +3,8 @@
 // We need to call in the Weather API we will be using
 
 // This code will get the weather data for the location inputed by the user. 
-var weatherReport = document.getElementById("weather-report")
+var weatherReport = document.getElementById("weather-report");
+var forecast = document.getElementById("forecast");
 
 function clearWeatherReport() {
     weatherReport.innerHTML = '';
@@ -22,7 +23,7 @@ function storeSearch(location) {
 
 }
 
-function getTestApi(lat, lon) {
+function getWeatherApi(lat, lon) {
     var units = "imperial"
     var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=' + units + '&appid=7683dd89e3713c696366aefeb8fa991f';
 
@@ -56,9 +57,19 @@ function getTestApi(lat, lon) {
             weatherReport.appendChild(listTemp);
             weatherReport.appendChild(listWind);
             weatherReport.appendChild(listHumid);
+
+            var fiveDayForecast = document.createElement("h3");
+            fiveDayForecast.textContent = "5-Day Forecast:";
+
+            // TODO: Create cards for 5 day forecast. 
+            // var forecastCard = getElementById("forecast-card");
+
+            forecast.appendChild(fiveDayForecast);
+
+            console.log(data)
         })
 };
-// getTestApi();
+
 
 
 // We need the location entry box. 
@@ -86,7 +97,7 @@ var formSubmitHandler = function (event) {
                     var lon = data[0].lon;
                     // console.log("Latitude:", lat, "Longitude:", lon);
                     clearWeatherReport();
-                    getTestApi(lat, lon);
+                    getWeatherApi(lat, lon);
                 }
                 else {
                     console.log("location not found");
@@ -133,15 +144,15 @@ function displaySearchHistory() {
             attachHoverEffect(historyBtn);
 
             // trying to add function for button clicks.
-            historyBtn.addEventListener("click", function (event){
+            historyBtn.addEventListener("click", function (event) {
 
                 var nameValue = event.target.value;
-    
+
                 if (nameValue) {
-    
+
                     // This is the code to convert the location name into lon and lat values. 
                     var geoApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + nameValue + "&limit=1&appid=7683dd89e3713c696366aefeb8fa991f"
-    
+
                     fetch(geoApiUrl)
                         .then(function (response) {
                             return response.json()
@@ -152,7 +163,7 @@ function displaySearchHistory() {
                                 var lon = data[0].lon;
                                 // console.log("Latitude:", lat, "Longitude:", lon);
                                 clearWeatherReport();
-                                getTestApi(lat, lon);
+                                getWeatherApi(lat, lon);
                             }
                             else {
                                 console.log("location not found");
@@ -161,8 +172,8 @@ function displaySearchHistory() {
                         .catch(function (error) {
                             console.log("Error fetching data: ", error);
                         });
-    
-    
+
+
                 } else {
                     alert('Please try a different location');
                 }
