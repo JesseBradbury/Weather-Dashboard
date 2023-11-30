@@ -39,7 +39,8 @@ function getTestApi(lat, lon) {
             iconImg.src = iconUrl;
             iconImg.alt = "Weather Icon";
 
-            listName.textContent = locationSearchEl.value.trim() + " " + "(" + dayjs().format('M/D/YYYY') + ")";
+            // listName.textContent = locationSearchEl.value.trim() + " " + "(" + dayjs().format('M/D/YYYY') + ")";
+            listName.textContent = data.city.name + " " + "(" + dayjs().format('M/D/YYYY') + ")";
 
             var listTemp = document.createElement("p");
             listTemp.textContent = "Temp: " + data.list[0].main.temp;
@@ -83,7 +84,7 @@ var formSubmitHandler = function (event) {
                 if (data.length > 0) {
                     var lat = data[0].lat;
                     var lon = data[0].lon;
-                    console.log("Latitude:", lat, "Longitude:", lon);
+                    // console.log("Latitude:", lat, "Longitude:", lon);
                     clearWeatherReport();
                     getTestApi(lat, lon);
                 }
@@ -121,7 +122,7 @@ function displaySearchHistory() {
     var startIndex = Math.max(0, previousSearch.length - 10);
     var uniqueCities = new Set();
 
-    for (var i = endIndex -1; i >= startIndex; i--) {
+    for (var i = endIndex - 1; i >= startIndex; i--) {
         var cityName = previousSearch[i];
         if (cityName && !uniqueCities.has(cityName)) {
 
@@ -130,16 +131,51 @@ function displaySearchHistory() {
             historyBtn.value = cityName;
             historyBtn.textContent = cityName;
             attachHoverEffect(historyBtn);
+
+            // trying to add function for button clicks.
+            historyBtn.addEventListener("click", function (event){
+
+                var nameValue = event.target.value;
+    
+                if (nameValue) {
+    
+                    // This is the code to convert the location name into lon and lat values. 
+                    var geoApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + nameValue + "&limit=1&appid=7683dd89e3713c696366aefeb8fa991f"
+    
+                    fetch(geoApiUrl)
+                        .then(function (response) {
+                            return response.json()
+                        })
+                        .then(function (data) {
+                            if (data.length > 0) {
+                                var lat = data[0].lat;
+                                var lon = data[0].lon;
+                                // console.log("Latitude:", lat, "Longitude:", lon);
+                                clearWeatherReport();
+                                getTestApi(lat, lon);
+                            }
+                            else {
+                                console.log("location not found");
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log("Error fetching data: ", error);
+                        });
     
     
-            
+                } else {
+                    alert('Please try a different location');
+                }
+
+            });
+
             searchHistory.appendChild(historyBtn);
             uniqueCities.add(cityName);
         }
-        
+
         // add event listener to each button.
     }
-    console.log(cityName);
+    // console.log(cityName);
 }
 displaySearchHistory();
 function attachHoverEffect(button) {
