@@ -6,9 +6,19 @@
 var weatherReport = document.getElementById("weather-report");
 var forecast = document.getElementById("forecast");
 
+
 function clearWeatherReport() {
-    weatherReport.innerHTML = '';
+    weatherReport.innerHTML = "";
 }
+
+// function clearForecastHead() {
+//     forecastHead.innerHTML = "";
+// }
+
+// function clearForecastCards() {
+//     forecastCards.innerHTML = "";
+
+// }
 
 function storeSearch(location) {
     var storedLocations = JSON.parse(localStorage.getItem("storedLocations")) || [];
@@ -58,19 +68,84 @@ function getWeatherApi(lat, lon) {
             weatherReport.appendChild(listWind);
             weatherReport.appendChild(listHumid);
 
+            // document.addEventListener("DOMContentLoaded", function () {
+            var forecastHead = document.getElementById("forecast-head")
+
+            function clearForecastHead() {
+                forecastHead.innerHTML = "";
+            }
+            clearForecastHead();
             var fiveDayForecast = document.createElement("h3");
             fiveDayForecast.textContent = "5-Day Forecast:";
+            forecastHead.append(fiveDayForecast);
 
             // TODO: Create cards for 5 day forecast. 
-            // var forecastCard = getElementById("forecast-card");
+            var forecastCards = document.getElementById("forecast-cards");
+            function clearForecastCards() {
+                forecastCards.innerHTML = "";
+            }
+            clearForecastCards();
 
-            forecast.appendChild(fiveDayForecast);
+            // for (let i = 5; i < 40; i+8) {
+                for (let i = 5; i <= 37; i += 8) {
+                    
+                
+                
+                var dayCard = document.createElement("section");
+                dayCard.classList.add("day-card");
+                
+                
+                var cardFormatedDate = "(" + data.list[i].dt_txt.slice(5,7) + "/" + data.list[i].dt_txt.slice(8,10) + "/" + data.list[i].dt_txt.slice(0,4) + ")";
+                
+                var cardDate = document.createElement("h4");
+                cardDate.textContent = cardFormatedDate;
+                
+                var cardIconCode = data.list[i].weather[0].icon;
+                var cardIconUrl = 'https://openweathermap.org/img/w/' + cardIconCode + '.png';
+                var cardIconImg = document.createElement("img");
+                cardIconImg.src = cardIconUrl;
+                cardIconImg.alt = "Weather Icon";
+                
+                var cardListTemp = document.createElement("p");
+                cardListTemp.textContent = "Temp: " + data.list[i].main.temp;
+                
+                var cardListWind = document.createElement("p");
+                cardListWind.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+                
+                var cardListHumid = document.createElement("p");
+                cardListHumid.textContent = "Humidity: " + data.list[i].main.humidity + " %";
+                
+                dayCard.appendChild(cardDate);
+                dayCard.appendChild(cardIconImg);
+                dayCard.appendChild(cardListTemp);
+                dayCard.appendChild(cardListWind);
+                dayCard.appendChild(cardListHumid);
+                
+                
+                forecastCards.appendChild(dayCard);
+            }
+            // });
+            // var 
+
 
             console.log(data)
         })
 };
 
+var createFiveDay = function () {
 
+    var forecastHead = document.getElementById("forecast-head")
+    var fiveDayForecast = document.createElement("h3");
+    fiveDayForecast.textContent = "5-Day Forecast:";
+    forecastHead.append(fiveDayForecast);
+
+    // TODO: Create cards for 5 day forecast. 
+    var forecastCards = document.getElementById("forecast-cards");
+    var dayCard = document.createElement("section")
+    dayCard.classList.add("day-card")
+
+    forecastCards.appendChild(dayCard);
+}
 
 // We need the location entry box. 
 var locationSearchEl = document.querySelector("#search-box");
@@ -101,6 +176,7 @@ var formSubmitHandler = function (event) {
                 }
                 else {
                     console.log("location not found");
+                    alert("Please try a different location.")
                 }
             })
             .catch(function (error) {
@@ -128,6 +204,7 @@ function displaySearchHistory() {
     var searchHistory = document.querySelector("#search-history")
 
     searchHistory.innerHTML = "";
+
 
     var endIndex = previousSearch.length;
     var startIndex = Math.max(0, previousSearch.length - 10);

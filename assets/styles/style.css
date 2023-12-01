@@ -119,3 +119,25 @@ input {
 #forecast h3 {
 
 }
+
+#forecast-cards {
+    display: flex;
+    /* margin: 5px; */
+}
+
+.day-card {
+    background-color: #00224b;
+    height: 250px;
+    width: 200px;
+    color: white;
+    margin: 5px;
+}
+
+.day-card h4 {
+    margin-left: 5px;
+}
+
+.day-card p {
+    margin-left: 5px;
+}
+
