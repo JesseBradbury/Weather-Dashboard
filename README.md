@@ -15,4 +15,4 @@ Enjoy!
 ![screenshot of asignment](./assets/images/ss1.png)
 
 
-## [Click here to view my project!](https://jessebradbury.github.io/JavaScript-Quiz/)
+## [Click here to view my project!](https://jessebradbury.github.io/Weather-Dashboard/)
