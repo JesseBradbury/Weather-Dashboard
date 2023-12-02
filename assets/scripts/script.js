@@ -146,13 +146,13 @@ var formSubmitHandler = function (event) {
                 if (data.length > 0) {
                     var lat = data[0].lat;
                     var lon = data[0].lon;
-                    // console.log("Latitude:", lat, "Longitude:", lon);
                     clearWeatherReport();
                     getWeatherApi(lat, lon);
                 }
                 else {
                     console.log("location not found");
-                    alert("Please try a different location.")
+                    window.alert("Please try a different location.");
+                    
                 }
             })
             .catch(function (error) {
@@ -171,10 +171,9 @@ form.addEventListener('submit', formSubmitHandler);
 
 
 
-// We need a spot that displays the previous search location that the user has searched. 
-// This will be the code to create the previous results buttons. 
 
 
+// This is the function that will create the buttons with search history. 
 function displaySearchHistory() {
     var previousSearch = JSON.parse(localStorage.getItem("storedLocations"));
     var searchHistory = document.querySelector("#search-history")
@@ -196,7 +195,7 @@ function displaySearchHistory() {
             historyBtn.textContent = cityName;
             attachHoverEffect(historyBtn);
 
-            // trying to add function for button clicks.
+            
             historyBtn.addEventListener("click", function (event) {
 
                 var nameValue = event.target.value;
@@ -237,11 +236,14 @@ function displaySearchHistory() {
             uniqueCities.add(cityName);
         }
 
-        // add event listener to each button.
+        
     }
-    // console.log(cityName);
+    
 }
+
 displaySearchHistory();
+
+
 function attachHoverEffect(button) {
 
     button.addEventListener("mouseover", function () {
@@ -253,7 +255,7 @@ function attachHoverEffect(button) {
 }
 
 
-
+// This resets is the code for the reset history button. 
 var resetPress = function resetSearchHistory() {
     localStorage.removeItem("storedLocations");
     window.location.reload();
@@ -261,8 +263,4 @@ var resetPress = function resetSearchHistory() {
 var clearPress = document.querySelector("#clear");
 clearPress.addEventListener('click', resetPress);
 
-
-// We need an empty div that will display thecurrent conditions at the top and the 5 day forcast at the bottom. 
-
-// When the user submits a new location, or clicks a previously searched one, the 5 day forecast is displayed in the empty div. 
 
